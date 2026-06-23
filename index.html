@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BrainFace: identity-level face recognition from human EEG signals with the BrainFace-40 benchmark and EEG-FOFNO.">
+  <title>BrainFace | Project Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="meta" href="#top">2026 <span>/</span> RESEARCH PROJECT</a>
+    <a class="brand" href="#top">BRAIN<span>FACE</span></a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-label="Toggle navigation">
+      <i></i><i></i>
+    </button>
+    <nav aria-label="Primary navigation">
+      <a href="#overview">Overview</a>
+      <a href="#dataset">Dataset</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#analysis">Analysis</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="tags">
+          <span>EEG Decoding</span>
+          <span>Face Identity</span>
+          <span>Neural Operators</span>
+        </div>
+        <p class="overline">Can the human brain reveal who it sees?</p>
+        <h1><em>BrainFace:</em> Towards Identity-Level Face Recognition from Human EEG Signals</h1>
+        <p class="hero-summary">
+          The first multi-subject benchmark and topology–frequency learning framework for decoding fine-grained facial identity from non-invasive EEG.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="assets/BrainFace-paper.pdf" target="_blank">Paper PDF</a>
+          <a class="button" href="#method">Explore Method</a>
+        </div>
+        <div class="submission">
+          <strong>Anonymous submission</strong>
+          <span>Author information will be added after publication.</span>
+        </div>
+      </div>
+
+      <figure class="hero-figure paper-image">
+        <button type="button" data-image="assets/overview.png" aria-label="Open paper overview figure">
+          <img src="assets/overview.png" alt="Overview of the BrainFace-40 dataset and EEG-FOFNO framework">
+          <span>Figure 1 · Open full size</span>
+        </button>
+      </figure>
+
+      <div class="hero-stats">
+        <div><strong>40</strong><span>face identities</span></div>
+        <div><strong>100K</strong><span>EEG trials</span></div>
+        <div><strong>5</strong><span>participants</span></div>
+        <div><strong>10</strong><span>sessions each</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <header class="section-title">
+        <span>01</span>
+        <div>
+          <p class="overline">Research question</p>
+          <h2>Identity beyond appearance</h2>
+        </div>
+        <p>Face categories look remarkably similar. BrainFace asks whether subtle identity information is nevertheless measurable in short, non-invasive EEG recordings.</p>
+      </header>
+
+      <div class="question-grid">
+        <article>
+          <span>Q1</span>
+          <h3>Is identity decodable?</h3>
+          <p>Can face-evoked EEG distinguish 40 individual identities substantially above the 2.5% chance level?</p>
+        </article>
+        <article>
+          <span>Q2</span>
+          <h3>Is it stable over time?</h3>
+          <p>Do learned identity representations survive changes across independently recorded sessions?</p>
+        </article>
+        <article>
+          <span>Q3</span>
+          <h3>Is it shared across people?</h3>
+          <p>To what extent do identity-related neural patterns transfer to previously unseen participants?</p>
+        </article>
+      </div>
+
+      <div class="finding">
+        <p class="overline">Central finding</p>
+        <blockquote>Facial identity is reliably encoded in EEG signals, but its representation is shaped by temporal context, session variability, and familiarity.</blockquote>
+      </div>
+    </section>
+
+    <section class="section dataset" id="dataset">
+      <header class="section-title">
+        <span>02</span>
+        <div>
+          <p class="overline">BrainFace-40</p>
+          <h2>A benchmark built for identity</h2>
+        </div>
+        <p>Balanced face stimuli and independently recorded sessions support within-subject, cross-session, cross-subject, temporal-context, and cognitive analyses.</p>
+      </header>
+
+      <div class="dataset-facts">
+        <div><strong>2,000</strong><span>face images</span><small>50 images × 40 identities</small></div>
+        <div><strong>126</strong><span>EEG channels</span><small>after reference removal</small></div>
+        <div><strong>500 ms</strong><span>trial window</span><small>stimulus onset to +500 ms</small></div>
+        <div><strong>1 kHz</strong><span>sampling rate</span><small>downsampled from 5 kHz</small></div>
+      </div>
+
+      <figure class="wide-figure paper-image">
+        <button type="button" data-image="assets/protocol.png" aria-label="Open stimulus presentation protocol">
+          <img src="assets/protocol.png" alt="Stimulus presentation protocol across ten sessions">
+          <span>Figure 2 · Open full size</span>
+        </button>
+        <figcaption>Each participant completes ten independent sessions. Every session presents all 40 identities with randomized face images and controlled rest intervals.</figcaption>
+      </figure>
+
+      <div class="pipeline">
+        <article><span>01</span><h3>Stimulus expansion</h3><p>PhotoMaker expands 50 high-quality source identities into 2,000 manually screened face images.</p></article>
+        <article><span>02</span><h3>EEG acquisition</h3><p>A 128-channel system records responses while participants view identity-controlled face sequences.</p></article>
+        <article><span>03</span><h3>Preprocessing</h3><p>Filtering, ICA, artifact rejection, baseline correction, segmentation, and robust normalization.</p></article>
+        <article><span>04</span><h3>Evaluation</h3><p>Subject-wise cross-validation plus temporal, session, participant, and cognitive protocols.</p></article>
+      </div>
+    </section>
+
+    <section class="section method" id="method">
+      <header class="section-title">
+        <span>03</span>
+        <div>
+          <p class="overline">EEG-FOFNO</p>
+          <h2>Local topology meets global spectrum</h2>
+        </div>
+        <p>Two complementary branches operate on the same EEG tokens before adaptive fusion predicts one of 40 identities.</p>
+      </header>
+
+      <figure class="architecture paper-image">
+        <button type="button" data-image="assets/architecture.png" aria-label="Open EEG-FOFNO architecture">
+          <img src="assets/architecture.png" alt="Detailed architecture of EEG-FOFNO">
+          <span>Figure 3 · Open full size</span>
+        </button>
+        <figcaption>EEG-FOFNO integrates electrode-topological spatiotemporal encoding and low-frequency-enhanced spectral modeling.</figcaption>
+      </figure>
+
+      <div class="branch-grid">
+        <article class="branch topology">
+          <div class="branch-label">Branch A</div>
+          <h3>Electrode Topology Encoding</h3>
+          <p>Temporal convolutions extract short-range waveform patterns while electrode-wise aggregation captures coordinated neural activity across channels. Transformer blocks then model long-range dependencies among temporal EEG patches.</p>
+          <ul>
+            <li>Local spatiotemporal tokenization</li>
+            <li>Multi-head self-attention</li>
+            <li>Context across processing stages</li>
+          </ul>
+        </article>
+        <article class="branch spectral">
+          <div class="branch-label">Branch B</div>
+          <h3>Weighted Fourier Spectral Encoding</h3>
+          <p>The full spectrum is retained rather than hard-truncated. A learnable decay function emphasizes stable low-frequency structure while softly regulating noisy high-frequency variation.</p>
+          <ul>
+            <li>Full-spectrum Fourier transform</li>
+            <li>Learnable frequency rebalancing</li>
+            <li>Global neural dynamics</li>
+          </ul>
+        </article>
+        <article class="branch fusion">
+          <div class="branch-label">Fusion</div>
+          <h3>Adaptive identity prediction</h3>
+          <p>Temporal-contextual and frequency-domain representations are aligned and fused, then flattened into a lightweight classifier for 40-way identity prediction.</p>
+          <code>Z = Z<sub>T</sub> + Z<sub>F</sub></code>
+        </article>
+      </div>
+    </section>
+
+    <section class="section results" id="results">
+      <header class="section-title">
+        <span>04</span>
+        <div>
+          <p class="overline">Experiments</p>
+          <h2>Well above chance</h2>
+        </div>
+        <p>EEG-FOFNO improves both exact identity prediction and top-ranked candidate retrieval on BrainFace-40.</p>
+      </header>
+
+      <div class="result-hero">
+        <div>
+          <span>Top-1 accuracy</span>
+          <strong>45.8%</strong>
+          <small>+9.2 points over the strongest baseline</small>
+        </div>
+        <div>
+          <span>Top-5 accuracy</span>
+          <strong>94.5%</strong>
+          <small>40-way identity decoding</small>
+        </div>
+        <div>
+          <span>Chance level</span>
+          <strong>2.5%</strong>
+          <small>for Top-1 classification</small>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-heading"><h3>BrainFace-40 comparison</h3><span>Five-fold average (%)</span></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Method</th><th>Top-1</th><th>Top-5</th></tr></thead>
+            <tbody>
+              <tr><td>CNN</td><td>9.6</td><td>34.1</td></tr>
+              <tr><td>EEGNet</td><td>11.1</td><td>47.3</td></tr>
+              <tr><td>SyncNet</td><td>11.4</td><td>44.4</td></tr>
+              <tr><td>EEGConformer</td><td>36.0</td><td>91.2</td></tr>
+              <tr><td>DAEEGViT</td><td>36.6</td><td>92.2</td></tr>
+              <tr class="ours"><td>EEG-FOFNO <b>Ours</b></td><td>45.8</td><td>94.5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="result-figures">
+        <figure class="paper-image">
+          <button type="button" data-image="assets/tsne.png" aria-label="Open t-SNE visualization">
+            <img src="assets/tsne.png" alt="t-SNE visualization of EEG representations for 40 face identities">
+            <span>Figure 6 · Open full size</span>
+          </button>
+          <figcaption>Identity clusters remain largely separable in the learned EEG representation space.</figcaption>
+        </figure>
+        <figure class="paper-image">
+          <button type="button" data-image="assets/identity-radials.png" aria-label="Open identity-wise radial comparison">
+            <img src="assets/identity-radials.png" alt="Identity-wise Top-1 and Top-5 radial plots for six EEG models">
+            <span>Figure 7 · Open full size</span>
+          </button>
+          <figcaption>EEG-FOFNO produces a larger and more balanced identity-wise recognition profile.</figcaption>
+        </figure>
+      </div>
+
+      <div class="participants">
+        <div class="table-heading"><h3>Performance across participants</h3><span>Top-1 / Top-5 (%)</span></div>
+        <div class="participant-bars">
+          <div style="--score:45.8%"><span>S1</span><i></i><b>45.8 / 94.5</b></div>
+          <div style="--score:39.9%"><span>S2</span><i></i><b>39.9 / 86.5</b></div>
+          <div style="--score:35.6%"><span>S3</span><i></i><b>35.6 / 75.4</b></div>
+          <div style="--score:41.4%"><span>S4</span><i></i><b>41.4 / 88.9</b></div>
+          <div style="--score:37.5%"><span>S5</span><i></i><b>37.5 / 85.8</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section analysis" id="analysis">
+      <header class="section-title">
+        <span>05</span>
+        <div>
+          <p class="overline">Beyond average accuracy</p>
+          <h2>What shapes neural identity?</h2>
+        </div>
+        <p>The benchmark exposes how presentation history, recording time, participant variability, and familiarity affect identity-level decoding.</p>
+      </header>
+
+      <div class="analysis-grid">
+        <article>
+          <p class="overline">Temporal context</p>
+          <h3>Continuity helps—but can confound.</h3>
+          <p>Longer identity continuity substantially improves recognition, yet extreme blocks may amplify contextual and block-related effects. BrainFace uses ICL-50 as a practical balance.</p>
+          <figure class="paper-image compact">
+            <button type="button" data-image="assets/continuity.png" aria-label="Open identity continuity experiment">
+              <img src="assets/continuity.png" alt="Effects of identity continuity length on decoding accuracy">
+              <span>Figure 8 · Open full size</span>
+            </button>
+          </figure>
+        </article>
+        <article>
+          <p class="overline">Cross-session stability</p>
+          <h3>Identity persists across recording days.</h3>
+          <p>Under leave-one-session-out evaluation, average performance remains above chance at <strong>5.0% Top-1</strong> and <strong>22.5% Top-5</strong>, despite electrode, attention, and state variability.</p>
+          <div class="session-meter">
+            <span>Chance 2.5%</span>
+            <i><b></b></i>
+            <strong>5.0%</strong>
+          </div>
+        </article>
+        <article>
+          <p class="overline">Cognitive factors</p>
+          <h3>Familiarity matters more than gender.</h3>
+          <p>Recognition rates are nearly identical across male and female identities, while highly familiar identities tend to appear in the upper half of the accuracy ranking.</p>
+          <figure class="paper-image compact">
+            <button type="button" data-image="assets/gender-analysis.png" aria-label="Open gender composition analysis">
+              <img src="assets/gender-analysis.png" alt="Gender composition among top and bottom recognized face identities">
+              <span>Figure 9 · Open full size</span>
+            </button>
+          </figure>
+        </article>
+      </div>
+    </section>
+
+    <section class="section generalization">
+      <header class="section-title">
+        <span>06</span>
+        <div>
+          <p class="overline">External benchmarks</p>
+          <h2>Beyond face identity</h2>
+        </div>
+        <p>The topology–frequency representation transfers to broader EEG visual decoding tasks.</p>
+      </header>
+      <div class="benchmark-cards">
+        <article><span>EEG-ImageNet</span><strong>59.5%</strong><p>Top-1 under the Spampinato et al. protocol, with 96.1% Top-5.</p></article>
+        <article><span>EEG-ImageNet</span><strong>13.3%</strong><p>Top-1 under the Ahmed et al. protocol, with 37.3% Top-5.</p></article>
+        <article><span>ThingsEEG</span><strong>14.4%</strong><p>Average Top-1 across ten subjects, with 41.7% Top-5.</p></article>
+      </div>
+    </section>
+
+    <section class="section paper-note">
+      <div>
+        <p class="overline">Paper status</p>
+        <h2>Anonymous manuscript</h2>
+        <p>The provided manuscript is an anonymous 2026 submission. Author, venue, code, dataset release, and citation links should be added when they become public.</p>
+      </div>
+      <a class="button primary" href="assets/BrainFace-paper.pdf" target="_blank">Read the manuscript</a>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#top">BRAIN<span>FACE</span></a>
+    <p>Identity-level face recognition from human EEG signals.</p>
+    <p>Project page · 2026</p>
+  </footer>
+
+  <dialog class="lightbox">
+    <button class="close" type="button" aria-label="Close image">×</button>
+    <img alt="">
+  </dialog>
+  <script src="script.js"></script>
+</body>
+</html>
